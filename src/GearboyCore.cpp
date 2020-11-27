@@ -115,7 +115,7 @@ bool GearboyCore::RunToVBlank(u16* pFrameBuffer, s16* pSampleBuffer, int* pSampl
             #else
                 unsigned int clockCycles = m_pProcessor->Tick();
             #endif
-            
+
             vblank = m_pVideo->Tick(clockCycles, pFrameBuffer, m_pixelFormat);
             m_pAudio->Tick(clockCycles);
             m_pInput->Tick(clockCycles);
@@ -323,7 +323,7 @@ void GearboyCore::SetDMGPalette(GB_Color& color1, GB_Color& color2, GB_Color& co
         m_DMGPalette[0] = (((color1.red * 31) / 255) << shift ) | (((color1.green * multiplier) / 255) << 5 ) | ((color1.blue * 31) / 255);
         m_DMGPalette[1] = (((color2.red * 31) / 255) << shift ) | (((color2.green * multiplier) / 255) << 5 ) | ((color2.blue * 31) / 255);
         m_DMGPalette[2] = (((color3.red * 31) / 255) << shift ) | (((color3.green * multiplier) / 255) << 5 ) | ((color3.blue * 31) / 255);
-        m_DMGPalette[3] = (((color4.red * 31) / 255) << shift ) | (((color4.green * multiplier) / 255) << 5 ) | ((color4.blue * 31) / 255);        
+        m_DMGPalette[3] = (((color4.red * 31) / 255) << shift ) | (((color4.green * multiplier) / 255) << 5 ) | ((color4.blue * 31) / 255);
     }
     else
     {
@@ -331,7 +331,7 @@ void GearboyCore::SetDMGPalette(GB_Color& color1, GB_Color& color2, GB_Color& co
         m_DMGPalette[1] = (((color2.blue * 31) / 255) << shift ) | (((color2.red * multiplier) / 255) << 5 ) | ((color2.blue * 31) / 255);
         m_DMGPalette[2] = (((color3.blue * 31) / 255) << shift ) | (((color3.red * multiplier) / 255) << 5 ) | ((color3.blue * 31) / 255);
         m_DMGPalette[3] = (((color4.blue * 31) / 255) << shift ) | (((color4.red * multiplier) / 255) << 5 ) | ((color4.blue * 31) / 255);
-    }   
+    }
 
     if (!format_565)
     {

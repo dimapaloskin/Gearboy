@@ -79,6 +79,7 @@ void emu_init(const char* save_path)
     audio_enabled = true;
     emu_audio_sync = true;
     emu_debug_disable_breakpoints = false;
+    emu_debug_disable_sc_breapkpoints = false;
     emu_debug_background_tile_address = -1;
     emu_debug_background_map_address = -1;
     emu_debug_tile_dmg_palette = 0;
@@ -459,7 +460,7 @@ static void init_debug(void)
             debug_oam_buffers_565[s][i] = 0;
         }
     }
-    
+
     for (int i=0; i < (GAMEBOY_WIDTH * GAMEBOY_HEIGHT); i++)
     {
         emu_frame_buffer[i].red = 0;
@@ -599,8 +600,8 @@ static void update_debug_tile_buffers(void)
         {
             int tilex = (pixel >> 3) & 0xF;
             int tile_offset_x = pixel & 0x7;
-            int tiley = (pixel >> 10); 
-            int tile_offset_y = (pixel >> 7) & 0x7; 
+            int tiley = (pixel >> 10);
+            int tile_offset_y = (pixel >> 7) & 0x7;
             int tile = (tiley << 4) + tilex;
             int tile_address = 0x8000 + (tile << 4) + (tile_offset_y << 1);
             u8 byte1 = 0;

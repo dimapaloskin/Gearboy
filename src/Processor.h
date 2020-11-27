@@ -40,7 +40,7 @@ public:
     };
 
     struct ProcessorState
-    {        
+    {
         SixteenBitRegister* AF;
         SixteenBitRegister* BC;
         SixteenBitRegister* DE;
@@ -73,6 +73,8 @@ public:
     ProcessorState* GetState();
     bool Disassemble(u16 address);
     bool BreakpointHit();
+    bool scBreakpoint;
+    bool disableScBreakpoints;
 
 private:
     typedef void (Processor::*OPCptr) (void);
@@ -105,7 +107,7 @@ private:
     bool m_bBreakpointHit;
 
     struct GameSharkCode
-    {        
+    {
         u8 type;
         u16 address;
         u8 value;

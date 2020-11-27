@@ -120,7 +120,7 @@ void gui_render(void)
 void gui_shortcut(gui_ShortCutEvent event)
 {
     switch (event)
-    {  
+    {
     case gui_ShortcutOpenROM:
         shortcut_open_rom = true;
         break;
@@ -182,7 +182,7 @@ void gui_load_rom(const char* path)
     if (config_emulator.start_paused)
     {
         emu_pause();
-        
+
         for (int i=0; i < (GAMEBOY_WIDTH * GAMEBOY_HEIGHT); i++)
         {
             emu_frame_buffer[i].red = 0;
@@ -204,7 +204,7 @@ static void main_menu(void)
 
     for (int i = 0; i < 4; i++)
         custom_palette[i] = color_int_to_float(config_video.color[i]);
-    
+
     if (ImGui::BeginMainMenuBar())
     {
         if (ImGui::BeginMenu(GEARBOY_TITLE))
@@ -233,7 +233,7 @@ static void main_menu(void)
             }
 
             ImGui::Separator();
-            
+
             if (ImGui::MenuItem("Reset", "Ctrl+R"))
             {
                 menu_reset();
@@ -261,7 +261,7 @@ static void main_menu(void)
 
             ImGui::Separator();
 
-            if (ImGui::MenuItem("Save RAM As...")) 
+            if (ImGui::MenuItem("Save RAM As..."))
             {
                 save_ram = true;
             }
@@ -273,7 +273,7 @@ static void main_menu(void)
 
             ImGui::Separator();
 
-            if (ImGui::MenuItem("Save State As...")) 
+            if (ImGui::MenuItem("Save State As..."))
             {
                 save_state = true;
             }
@@ -284,7 +284,7 @@ static void main_menu(void)
             }
 
             ImGui::Separator();
-           
+
             if (ImGui::BeginMenu("Select State Slot"))
             {
                 ImGui::PushItemWidth(100.0f);
@@ -293,7 +293,7 @@ static void main_menu(void)
                 ImGui::EndMenu();
             }
 
-            if (ImGui::MenuItem("Save State", "Ctrl+S")) 
+            if (ImGui::MenuItem("Save State", "Ctrl+S"))
             {
                 emu_save_state_slot(config_emulator.save_slot + 1);
             }
@@ -330,7 +330,7 @@ static void main_menu(void)
             ImGui::Separator();
 
             ImGui::MenuItem("Start Paused", "", &config_emulator.start_paused);
-            
+
             ImGui::MenuItem("Save Files In ROM Folder", "", &config_emulator.save_in_rom_folder);
 
             ImGui::Separator();
@@ -338,7 +338,7 @@ static void main_menu(void)
             ImGui::MenuItem("Show ROM info", "", &config_emulator.show_info);
 
             ImGui::Separator();
-            
+
             if (ImGui::BeginMenu("Cheats"))
             {
                 ImGui::Text("Game Genie or GameShark codes:");
@@ -443,7 +443,7 @@ static void main_menu(void)
                 ImGui::SliderFloat("##dot_matrix", &config_video.matrix_intensity, 0.0f, 1.0f, "Intensity = %.2f");
                 ImGui::EndMenu();
             }
-            
+
             ImGui::Separator();
 
             if (ImGui::BeginMenu("Palette"))
@@ -475,7 +475,7 @@ static void main_menu(void)
             {
                 update_palette();
             }
-            
+
             ImGui::EndMenu();
         }
 
@@ -494,8 +494,8 @@ static void main_menu(void)
                 keyboard_configuration_item("Start:", &config_input.key_start);
                 keyboard_configuration_item("Select:", &config_input.key_select);
 
-                popup_modal_keyboard();                 
-                
+                popup_modal_keyboard();
+
                 ImGui::EndMenu();
             }
 
@@ -512,7 +512,7 @@ static void main_menu(void)
                     ImGui::PopItemWidth();
                     ImGui::EndMenu();
                 }
-                
+
                 if (ImGui::BeginMenu("Button Configuration"))
                 {
                     gamepad_configuration_item("A:", &config_input.gamepad_a);
@@ -520,7 +520,7 @@ static void main_menu(void)
                     gamepad_configuration_item("START:", &config_input.gamepad_start);
                     gamepad_configuration_item("SELECT:", &config_input.gamepad_select);
 
-                    popup_modal_gamepad();                 
+                    popup_modal_gamepad();
 
                     ImGui::EndMenu();
                 }
@@ -601,6 +601,10 @@ static void main_menu(void)
 
             ImGui::MenuItem("Disable All Breakpoints", 0, &emu_debug_disable_breakpoints, config_debug.debug);
 
+            if (ImGui::MenuItem("Disable In Code Breakpoints", 0, &emu_debug_disable_sc_breapkpoints, config_debug.debug)) {
+                gui_debug_disable_sc_breakpoints();
+            }
+
             ImGui::Separator();
 
             if (ImGui::BeginMenu("Font Size", config_debug.debug))
@@ -658,7 +662,7 @@ static void main_menu(void)
 
         main_menu_height = ImGui::GetWindowSize().y;
 
-        ImGui::EndMainMenuBar();       
+        ImGui::EndMainMenuBar();
     }
 
     if (open_rom || shortcut_open_rom)
@@ -675,7 +679,7 @@ static void main_menu(void)
 
     if (open_state)
         ImGui::OpenPopup("Load State From...");
-    
+
     if (save_state)
         ImGui::OpenPopup("Save State As...");
 
@@ -687,7 +691,7 @@ static void main_menu(void)
         dialog_in_use = true;
         ImGui::OpenPopup("About " GEARBOY_TITLE);
     }
-    
+
     popup_modal_about();
     file_dialog_open_rom();
     file_dialog_load_ram();
@@ -756,7 +760,7 @@ static void main_window(void)
     ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
 
     ImGuiWindowFlags flags = ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar;
-    
+
     if (config_debug.debug)
     {
         flags |= ImGuiWindowFlags_AlwaysAutoResize;
@@ -791,7 +795,7 @@ static void main_window(void)
 
     if (!config_debug.debug)
     {
-        
+
         ImGui::PopStyleVar();
     }
 }
@@ -981,7 +985,7 @@ static void popup_modal_about(void)
         }
 
         ImGui::Separator();
-        
+
         #ifdef _WIN64
         ImGui::Text("Windows 64 bit build");
         #elif defined(_WIN32)
@@ -1026,7 +1030,7 @@ static void popup_modal_about(void)
         #ifdef __STDC_VERSION__
         ImGui::Text("define: __STDC_VERSION__ = %d", (int)__STDC_VERSION__);
         #endif
-        
+
         ImGui::Separator();
 
         ImGui::Text("SDL %d.%d.%d (build)", application_sdl_build_version.major, application_sdl_build_version.minor, application_sdl_build_version.patch);
@@ -1051,7 +1055,7 @@ static void popup_modal_about(void)
 
         ImGui::Separator();
 
-        if (ImGui::Button("OK", ImVec2(120, 0))) 
+        if (ImGui::Button("OK", ImVec2(120, 0)))
         {
             ImGui::CloseCurrentPopup();
             dialog_in_use = false;
@@ -1107,7 +1111,7 @@ static void menu_reset(void)
     if (config_emulator.start_paused)
     {
         emu_pause();
-        
+
         for (int i=0; i < (GAMEBOY_WIDTH * GAMEBOY_HEIGHT); i++)
         {
             emu_frame_buffer[i].red = 0;
