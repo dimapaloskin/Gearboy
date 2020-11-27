@@ -567,17 +567,17 @@ static void main_menu(void)
 
             ImGui::Separator();
 
-            if (ImGui::MenuItem("Step Over", "CTRL + F10", (void*)0, config_debug.debug))
+            if (ImGui::MenuItem("Step Over", "CTRL + N", (void*)0, config_debug.debug))
             {
                 emu_debug_step();
             }
 
-            if (ImGui::MenuItem("Step Frame", "CTRL + F6", (void*)0, config_debug.debug))
+            if (ImGui::MenuItem("Step Frame", "CTRL + J", (void*)0, config_debug.debug))
             {
                 emu_debug_next_frame();
             }
 
-            if (ImGui::MenuItem("Continue", "CTRL + F5", (void*)0, config_debug.debug))
+            if (ImGui::MenuItem("Continue", "CTRL + C", (void*)0, config_debug.debug))
             {
                 emu_debug_continue();
             }
