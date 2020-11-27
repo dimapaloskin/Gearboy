@@ -635,6 +635,12 @@ void Processor::OPCode0x51()
 
 void Processor::OPCode0x52()
 {
+
+    u8 f = AF.GetLowRegister()->GetValue();
+    if ((f & 0b10000000) == 0x80) {
+        scBreakpoint = true;
+    }
+
     // LD D,D
     OPCodes_LD(DE.GetHighRegister(), DE.GetHigh());
 }
