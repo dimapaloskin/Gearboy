@@ -36,7 +36,7 @@
   (byte & 0x08 ? '1' : '0'), \
   (byte & 0x04 ? '1' : '0'), \
   (byte & 0x02 ? '1' : '0'), \
-  (byte & 0x01 ? '1' : '0') 
+  (byte & 0x01 ? '1' : '0')
 
 EXTERN void gui_debug_windows(void);
 EXTERN void gui_debug_reset(void);
@@ -44,6 +44,7 @@ EXTERN void gui_debug_reset_symbols(void);
 EXTERN void gui_debug_load_symbols_file(const char* path);
 EXTERN void gui_debug_toggle_breakpoint(void);
 EXTERN void gui_debug_reset_breakpoints(void);
+EXTERN void gui_debug_disable_sc_breakpoints(void);
 EXTERN void gui_debug_runtocursor(void);
 
 #undef GUI_DEBUG_IMPORT

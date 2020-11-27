@@ -55,6 +55,8 @@ Processor::Processor(Memory* pMemory)
     m_ProcessorState.PC = &PC;
     m_ProcessorState.IME = &m_bIME;
     m_ProcessorState.Halt = &m_bHalt;
+    scBreakpoint = false;
+    disableScBreakpoints = false;
 }
 
 Processor::~Processor()
@@ -152,9 +154,14 @@ u8 Processor::Tick()
 
         #ifndef GEARBOY_DISABLE_DISASSEMBLER
         m_bBreakpointHit = Disassemble(PC.GetValue());
+
+        if (!disableScBreakpoints && scBreakpoint) {
+            m_bBreakpointHit = true;
+            scBreakpoint = false;
+        }
         #endif
     }
-    
+
     if (!interrupt_served && (m_iInterruptDelayCycles > 0))
     {
         m_iInterruptDelayCycles -= m_iCurrentClockCycles;
@@ -252,7 +259,7 @@ void Processor::ServeInterrupt(Interrupts interrupt)
     m_bIME = false;
     StackPush(&PC);
     m_iCurrentClockCycles += AdjustedCycles(20);
-    
+
     switch (interrupt)
     {
         case VBlank_Interrupt:

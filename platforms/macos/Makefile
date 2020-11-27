@@ -13,7 +13,7 @@ bundle:
 	cp $(EXE) $(APP_NAME).app/Contents/MacOS/
 	cp run.sh $(APP_NAME).app/Contents/MacOS/
 	cp gamecontrollerdb.txt $(APP_NAME).app/Contents/MacOS/
-	install_name_tool -change $(DYLIB_PATH)/$(SDL_DYLIB) @$(APP_NAME).app/Contents/MacOS/$(SDL_DYLIB) $(APP_NAME).app/Contents/MacOS/$(APP_NAME)
+	install_name_tool -change $(DYLIB_PATH)/$(SDL_DYLIB) @$(APP_NAME).app/Contents/MacOS/$(SDL_DYLIB) $(APP_NAME).app/Contents/MacOS/gearboy
 
 dist: clean all bundle
 	@echo Success!!

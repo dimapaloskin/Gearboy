@@ -13,8 +13,8 @@
  * GNU General Public License for more details.
 
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see http://www.gnu.org/licenses/ 
- * 
+ * along with this program.  If not, see http://www.gnu.org/licenses/
+ *
  */
 
 #include "Processor.h"
@@ -450,7 +450,7 @@ void Processor::OPCode0x35()
 
 void Processor::OPCode0x36()
 {
-    // LD (HL),n    
+    // LD (HL),n
     m_pMemory->Write(HL.GetValue(), m_pMemory->Read(PC.GetValue()));
     PC.Increment();
 }
@@ -527,6 +527,7 @@ void Processor::OPCode0x3F()
 void Processor::OPCode0x40()
 {
     // LD B,B
+    scBreakpoint = true;
     OPCodes_LD(BC.GetHighRegister(), BC.GetHigh());
 }
 
@@ -1766,7 +1767,7 @@ void Processor::OPCode0xF1()
 
 void Processor::OPCode0xF2()
 {
-    // LD A,(C)     
+    // LD A,(C)
     OPCodes_LD(AF.GetHighRegister(), static_cast<u16> (0xFF00 + BC.GetLow()));
 }
 
