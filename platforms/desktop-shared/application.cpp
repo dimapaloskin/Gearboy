@@ -53,12 +53,12 @@ int application_init(const char* arg)
     }
 
     int ret = sdl_init();
-    
+
     config_init();
     config_read();
 
     emu_init(config_root_path);
-    
+
     gui_init();
 
     ImGui_ImplSDL2_InitForOpenGL(sdl_window, gl_context);
@@ -162,7 +162,7 @@ static int sdl_init(void)
     int display_w, display_h;
     SDL_GetWindowSize(sdl_window, &w, &h);
     SDL_GL_GetDrawableSize(sdl_window, &display_w, &display_h);
-    
+
     if (w > 0 && h > 0)
     {
         float scale_w = (float)display_w / w;
@@ -186,7 +186,7 @@ static void sdl_destroy(void)
 static void sdl_events(void)
 {
     SDL_Event event;
-        
+
     while (SDL_PollEvent(&event))
     {
         if (event.type == SDL_QUIT)
@@ -232,7 +232,7 @@ static void sdl_events_emu(const SDL_Event* event)
         {
             if (!config_input.gamepad)
                 break;
-            
+
             if (event->cbutton.button == config_input.gamepad_b)
                 emu_key_pressed(B_Key);
             else if (event->cbutton.button == config_input.gamepad_a)
@@ -241,10 +241,10 @@ static void sdl_events_emu(const SDL_Event* event)
                 emu_key_pressed(Select_Key);
             else if (event->cbutton.button == config_input.gamepad_start)
                 emu_key_pressed(Start_Key);
-            
+
             if (config_input.gamepad_directional == 1)
                 break;
-            
+
             if (event->cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_UP)
                 emu_key_pressed(Up_Key);
             else if (event->cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_DOWN)
@@ -269,10 +269,10 @@ static void sdl_events_emu(const SDL_Event* event)
                 emu_key_released(Select_Key);
             else if (event->cbutton.button == config_input.gamepad_start)
                 emu_key_released(Start_Key);
-            
+
             if (config_input.gamepad_directional == 1)
                 break;
-            
+
             if (event->cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_UP)
                 emu_key_released(Up_Key);
             else if (event->cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_DOWN)
@@ -288,12 +288,12 @@ static void sdl_events_emu(const SDL_Event* event)
         {
             if (!config_input.gamepad)
                 break;
-            
+
             if (config_input.gamepad_directional == 0)
                 break;
 
             const int STICK_DEAD_ZONE = 8000;
-                
+
             if(event->caxis.axis == config_input.gamepad_x_axis)
             {
                 int x_motion = event->caxis.value * (config_input.gamepad_invert_x_axis ? -1 : 1);
@@ -311,7 +311,7 @@ static void sdl_events_emu(const SDL_Event* event)
             else if(event->caxis.axis == config_input.gamepad_y_axis)
             {
                 int y_motion = event->caxis.value * (config_input.gamepad_invert_y_axis ? -1 : 1);
-                
+
                 if (y_motion < -STICK_DEAD_ZONE)
                     emu_key_pressed(Up_Key);
                 else if (y_motion > STICK_DEAD_ZONE)
@@ -387,7 +387,7 @@ static void sdl_shortcuts_gui(const SDL_Event* event)
     if ((event->type == SDL_KEYDOWN) && (event->key.keysym.mod & KMOD_CTRL))
     {
         int key = event->key.keysym.scancode;
-        
+
         switch (key)
         {
             case SDL_SCANCODE_O:
@@ -408,10 +408,10 @@ static void sdl_shortcuts_gui(const SDL_Event* event)
             case SDL_SCANCODE_S:
                 gui_shortcut(gui_ShortcutSaveState);
                 break;
-            case SDL_SCANCODE_F5:
+            case SDL_SCANCODE_C:
                 gui_shortcut(gui_ShortcutDebugContinue);
                 break;
-            case SDL_SCANCODE_F6:
+            case SDL_SCANCODE_J:
                 gui_shortcut(gui_ShortcutDebugNextFrame);
                 break;
             case SDL_SCANCODE_F8:
@@ -420,7 +420,7 @@ static void sdl_shortcuts_gui(const SDL_Event* event)
             case SDL_SCANCODE_F9:
                 gui_shortcut(gui_ShortcutDebugBreakpoint);
                 break;
-            case SDL_SCANCODE_F10:
+            case SDL_SCANCODE_N:
                 gui_shortcut(gui_ShortcutDebugStep);
                 break;
         }
@@ -451,7 +451,7 @@ static void run_emulator(void)
 static void render(void)
 {
     renderer_begin_render();
-    ImGui_ImplSDL2_NewFrame(sdl_window);  
+    ImGui_ImplSDL2_NewFrame(sdl_window);
     gui_render();
     renderer_render();
     renderer_end_render();
@@ -474,7 +474,7 @@ static void frame_throttle(void)
                 case 0:
                     min = 16.666f / 1.5f;
                     break;
-                case 1: 
+                case 1:
                     min = 16.666f / 2.0f;
                     break;
                 case 2:
